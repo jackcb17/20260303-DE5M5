@@ -7,14 +7,9 @@ DATA_DIR = ROOT / "data"
  
 books_csv = DATA_DIR / "03_Library Systembook.csv"
 customers_csv = DATA_DIR / "03_Library SystemCustomers.csv"
-
-# Calculate number of rows in data frames before cleaning
-
+ 
 books_df = pd.read_csv(books_csv)
 cust_df = pd.read_csv(customers_csv)
-
-books_rows_before = len(books_df)
-custs_rows_before = len(cust_df)
  
 # Clean column names
 books_df.columns = books_df.columns.str.strip()
@@ -109,20 +104,4 @@ books_df_v01["Late Fee"] = books_df_v01["Days Late"] * 1
 books_df_v01.to_csv(DATA_DIR / "cleaned_books.csv", index=False)
 cust_df.to_csv(DATA_DIR / "cleaned_cust.csv", index=False)
 
-# Calculate number of rows in data frames after cleaning
-
-
-books_rows_after = len(books_df_v01)
-
-custs_rows_after = len(cust_df)
-
-print(books_rows_before, custs_rows_before, books_rows_after, custs_rows_after)
-
-books_rows_change = books_rows_before - books_rows_after
-custs_rows_change = custs_rows_before - custs_rows_after
-
-csvdf = pd.DataFrame({"starting_rows": [books_rows_before, custs_rows_before],
-                   "ending_rows": [books_rows_after, custs_rows_after]
-                   })
-
-csvdf.to_csv(DATA_DIR / "data_eng_metrics.csv", index=False)
+print(books_df_v01.head(2))
